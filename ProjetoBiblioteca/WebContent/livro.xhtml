@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Cadastro Livros</title>
+</h:head> 
+
+<h:body> 
+
+	<h:form id="formularioLivro">
+	
+		<p:messages autoUpdate="true" />
+	
+		<p:panel header="Cadastro Livros">
+	
+			<p:outputLabel for="titulo" value="Título:" />
+           		<p:inputText id="titulo" value="#{livroMB.livro.titulo}" required="true" label="Título" />
+
+            	<p:outputLabel for="autor" value="Autor:" />
+            	<p:inputText id="autor" value="#{livroMB.livro.autor}" required="true" label="Autor" />
+
+            	<p:outputLabel for="editora" value="Editora:" />
+            	<p:inputText id="editora" value="#{livroMB.livro.editora}" required="true" label="Editora" />
+
+            	<p:outputLabel for="genero" value="Gênero:" />
+            	<p:selectOneMenu id="genero" value="#{livroMB.livro.genero}" required="true" label="Gênero">
+                <f:selectItem itemLabel="Selecione..." itemValue="" />
+                <f:selectItems value="#{livroMB.generos}" var="g"
+                               itemLabel="#{g}" itemValue="#{g}" />
+            	</p:selectOneMenu>
+
+            	<p:outputLabel for="numPaginas" value="Número de Páginas:" />
+            	<p:inputText id="numPaginas" value="#{livroMB.livro.numeroPaginas}" required="true" label="Número de Páginas">
+                <f:validateLongRange minimum="1" />
+            	</p:inputText>
+
+            	<p:commandButton value="Salvar" action="#{livroMB.salvar}" update="@form" />
+	
+		</p:panel>
+	
+	</h:form>
+</h:body> 
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Coleção Completa Livros</title>
+</h:head> 
+
+<h:body>
+    <h:form id="formColecao" prependId="false">
+    
+        <!-- Título -->
+        <p:panel header="Coleção Completa" style="margin-bottom:20px; text-align:center; font-size:18px;" />
+
+        <!-- Campo de busca -->
+        <p:panel style="margin-bottom:20px;">
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="tituloBusca" value="Buscar por título:" />
+                <p:inputText id="tituloBusca" value="#{livroMB.tituloBusca}" />
+                <p:commandButton value="Buscar" action="#{livroMB.buscarTitulo}" update="tabela msg" />
+            </h:panelGrid>
+            <p:messages id="msg" autoUpdate="true" showDetail="true" closable="true" style="margin-top:10px;" />
+        </p:panel>
+
+        <!-- Tabela -->
+        <p:dataTable id="tabela" value="#{livroMB.livros}" var="livro" paginator="true" rows="10" emptyMessage="Nenhum livro encontrado.">
+            <p:column headerText="Título">#{livro.titulo}</p:column>
+            <p:column headerText="Autor">#{livro.autor}</p:column>
+            <p:column headerText="Editora">#{livro.editora}</p:column>
+            <p:column headerText="Gênero">#{livro.genero}</p:column>
+            <p:column headerText="Páginas">#{livro.numeroPaginas}</p:column>
+            <p:column headerText="Ações">
+                <p:commandButton value="Excluir" 
+                                 action="#{livroMB.remover(livro)}" 
+                                 update="tabela msg"
+                                 icon="pi pi-trash"
+                                 styleClass="ui-button-danger" />
+            </p:column>
+        </p:dataTable>
+
+        <!-- Botão voltar -->
+        <div style="text-align:center; margin-top:20px;">
+            <p:commandButton value="Voltar à Página Inicial"
+                             action="index?faces-redirect=true"
+                             icon="pi pi-home"
+                             styleClass="ui-button-secondary" />
+        </div>
+        
+    </h:form>
+    </h:body> 
+</html>

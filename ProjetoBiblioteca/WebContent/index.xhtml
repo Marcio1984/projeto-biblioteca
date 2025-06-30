@@ -2,13 +2,64 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Coleção Biblioteca</title>
+	<title>Coleção Livros</title>
 </h:head> 	
 
 <h:body> 
-	<h:outputText value="Bem-vindo ao gerenciamento de sua coleção de livros!"></h:outputText>
+	<h:form>
+		<p:panel header="Bem-vindo à Biblioteca" style="width:300px; margin:auto; text-align:center;">
+	 
+	 	 	<p:commandButton value="Cadastrar Livro"
+                             action="livro?faces-redirect=true"
+                             icon="pi pi-plus"
+                             styleClass="p-mb-2" style="width: 100%;" />
+
+            <p:spacer height="10" />
+
+            <p:commandButton value="Buscar Livro"
+                             action="buscar?faces-redirect=true"
+                             icon="pi pi-search"
+                             styleClass="p-mb-2" style="width: 100%;" />
+
+            <p:spacer height="10" />
+
+            <p:commandButton value="Coleção de Livros"
+                             action="colecao?faces-redirect=true"
+                             icon="pi pi-list"
+                             style="width: 100%;" />
+                             
+           <!-- Busca de livro -->
+            <p:outputLabel value="Buscar Livro pelo Título:" for="tituloBusca" style="margin-top:15px;" />
+            <p:inputText id="tituloBusca" value="#{livroMB.tituloBusca}" style="width:100%;" />
+
+            <p:commandButton value="Buscar"
+                             action="#{livroMB.buscarTitulo}"
+                             update="resultadoBusca"
+                             icon="pi pi-search"
+                             style="margin-top:10px;" />
+
+            <!-- Resultado da busca -->
+            <h:panelGroup id="resultadoBusca">
+                <ui:repeat value="#{livroMB.livros}" var="livro">
+                    <p:panel header="#{livro.titulo}" style="margin-top:10px; text-align:left;">
+                        <p:outputLabel value="Autor: #{livro.autor}" /><br/>
+                        <p:outputLabel value="Editora: #{livro.editora}" /><br/>
+                        <p:outputLabel value="Gênero: #{livro.genero}" /><br/>
+                        <p:outputLabel value="Páginas: #{livro.numeroPaginas}" />
+                    </p:panel>
+                </ui:repeat>
+
+                <p:outputLabel value="Livro não encontrado."
+                               rendered="#{empty livroMB.livros and not empty livroMB.tituloBusca}"
+                               style="color:red; font-weight:bold; margin-top:10px;" />
+            </h:panelGroup>                    
+                             
+	 	</p:panel>
+	 </h:form>
+	 
 </h:body> 
 </html>
